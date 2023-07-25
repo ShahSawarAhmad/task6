@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+    <style type="text/css">
+        
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+h1{
+    text-align: center;
+}
+
+.container {
+    max-width: 400px;
+    background-color: rgb(245, 244, 244);
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #bebebe;
+    border-radius: 12px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #383838;
+    border-radius: 5px;
+}
+
+#error-message {
+    color: red;
+    margin-bottom: 15px;
+}
+
+input[type="submit"] {
+    width: 30%;
+    padding: 10px;
+    background-color: #169705;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #42b300;
+}
+
+
+    </style>
+
+
+
+</head>
+<body>
+    <h1>This is Validations form</h1>
+    <div class="container">
+        <h2>Registration form</h2>
+        <br>
+        <form name="registrationForm" onsubmit="validateForm(event)">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" required>
+            </div>
+            <div id="error-message"></div>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script>
+        
+        function validateForm(event) {
+    event.preventDefault(); // Prevent form submission if validation fails
+
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirm-password').value;
+    var errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = ''; // Clear any previous error message
+
+    if (name == "") {
+        showError("Please enter your name");
+        return;
+    }
+
+
+    if (!isEmailValid(email)) {
+        showError("Please Enter a Valid Email Address");
+        return;
+    }
+
+    if (password == "") {
+        showError("Please Enter Your Password");
+        return;
+    }
+
+    if (password.length < 8) {
+        showError("The Password must contain at least 8 characters");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showError("Passwords do not match");
+        return;
+    }
+
+    // If all validations pass,The form will be submited here
+    console.log("Form submitted successfully!");
+}
+
+function showError(message) {
+    var errorMessage = document.getElementById("error-message");
+    errorMessage.textContent = message;
+}
+
+function isEmailValid(email) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+
+    </script>
+    
+</body>
+</html>
